@@ -33,23 +33,23 @@ const pads = [
   {
     color: "red",
     selector: document.querySelector(".js-pad-red"),
-    sound: new Audio("https://github.com/aprilsClasses/js-dev-final-capstone-starter-simon-says/tree/main/assets/simon-says-sound-1.mp3"),
+    sound: new Audio("https://github.com/aprilsClasses/js-dev-final-capstone-starter-simon-says/blob/main/assets/simon-says-sound-1.mp3"),
   },
   // TODO: Add the objects for the green, blue, and yellow pads. Use object for the red pad above as an example.
   {
     color: "green",
     selector: document.querySelector(".js-pad-green"),
-    sound: new Audio("https://github.com/aprilsClasses/js-dev-final-capstone-starter-simon-says/tree/main/assets/simon-says-sound-2.mp3"),
+    sound: new Audio("https://github.com/aprilsClasses/js-dev-final-capstone-starter-simon-says/blob/main/assets/simon-says-sound-2.mp3"),
   },
   {
     color: "blue",
     selector: document.querySelector(".js-pad-blue"),
-    sound: new Audio("https://github.com/aprilsClasses/js-dev-final-capstone-starter-simon-says/tree/main/assets/simon-says-sound-3.mp3"),
+    sound: new Audio("https://github.com/aprilsClasses/js-dev-final-capstone-starter-simon-says/blob/main/assets/simon-says-sound-3.mp3"),
   },
   {
     color: "yellow",
     selector: document.querySelector(".js-pad-yellow"),
-    sound: new Audio("https://github.com/aprilsClasses/js-dev-final-capstone-starter-simon-says/tree/main/assets/simon-says-sound-4.mp3"),
+    sound: new Audio("https://github.com/aprilsClasses/js-dev-final-capstone-starter-simon-says/blob/main/assets/simon-says-sound-4.mp3"),
   }
 ];
 
