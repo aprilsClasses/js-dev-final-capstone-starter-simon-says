@@ -2,10 +2,9 @@
  * DOM SELECTORS
  */
 
- // TODO: Add the missing query selectors:
+ // DONE: Add the missing query selectors:
  const startButton = document.querySelector(".js-start-button");
-
- const statusSpan = document.querySelector(".status"); // Use querySelector() to get the status element
+ const statusSpan = document.querySelector(".js-status"); // Use querySelector() to get the status element
  const heading = document.querySelector(".js-heading"); // Use querySelector() to get the heading element
  const padContainer = document.querySelector(".pad-container"); // Use querySelector() to get the padContainer element
 
@@ -61,7 +60,6 @@ let roundCount = 0; // track the number of rounds that have been played so far
  */
 
 padContainer.addEventListener("click", padHandler);
-// TODO: Add an event listener `startButtonHandler()` to startButton.
 startButton.addEventListener("click", startButtonHandler);
 
 /**
@@ -83,22 +81,17 @@ startButton.addEventListener("click", startButtonHandler);
  *
  */
 function startButtonHandler() {
-  // DONE: Write your code here.
-  // Hides start button
-  startButton.classList.add("hidden");
+  maxRoundCount = setLevel();
+  roundCount = 1;
 
-  // Unhides the status element using the `.hidden` class, shows game status
-  const statusSpan = document.querySelector(".js-status");
+  startButton.classList.add("hidden");
+// console.log("statusSpan:", statusSpan);
   statusSpan.classList.remove("hidden");
-  
+  // console.log("Unhiding statusSpan");
   // To start of the game, call playComputerTurn() and setLevel()
   playComputerTurn();
-  setLevel();
 
-  return { 
-    startButton, 
-    statusSpan,
-    setLevel};
+
 }
 
 /**
@@ -121,10 +114,12 @@ function startButtonHandler() {
 function padHandler(event) {
   const { color } = event.target.dataset;
   if (!color) return;
-
-  // TODO: Write your code here.
-  const pad = pads.find(pa => pa.color === color);
-pad.sound.play();
+ 
+ const pad = pads.find((pad) => pad.color === color);
+ if (pad) {
+  pad.sound.play();
+  checkPress(color);
+ }
 
 return color;
 }
@@ -155,7 +150,6 @@ return color;
  *
  */
 function setLevel(level = 1) {
-  // DONE: Write your code here.
   switch (level) {
     case 1:
       return 8;
@@ -200,7 +194,6 @@ function getRandomItem(collection) {
  * Sets the status text of a given HTML element with a given a message
  */
 function setText(element, text) {
-  // TODO: Write your code here.
   element.textContent = text;
   return element;
 }
@@ -219,23 +212,20 @@ function setText(element, text) {
  */
 
 function activatePad(color) {
-  // TODO: Write your code here.
-  const pad = pads.find(p => p.color === color);
+  const pad = pads.find((p) => p.color === color);
 
-  if(pad) {
-    const padElementPressed = pad.selector;
-    padElementPressed.classList.add("activated");
-    
+  if (pad) {
+    const padEl = pad.selector;
+    padEl.classList.add("activated");
+
     pad.sound.play();
-    
-    // need to call padHandler to press 
+
     setTimeout(() => {
-      padElementPressed.classList.remove("activated");
+      padEl.classList.remove("activated");
     }, 500);
-    return pad;
   }
-  return null;
   
+ 
 }
 
 /**
@@ -253,7 +243,6 @@ function activatePad(color) {
  */
 
 function activatePads(sequence) {
-  // TODO: Write your code here.
   let timeoutbetweenPresses = 600;
 
   sequence.forEach((color) => {
@@ -289,9 +278,14 @@ function activatePads(sequence) {
  * sequence.
  */
  function playComputerTurn() {
-  // TODO: Write your code here.
+
+  const randomColor = getRandomItem(pads.map((p)=> p.color)); 
+  computerSequence.push(randomColor);
   setText(statusSpan, "The computer's turn...");
-  setText(heading, `Round ${roundCount + 1} of ${maxRoundCount}`);
+  setText(heading, `Round ${roundCount} of ${maxRoundCount}`);
+
+  activatePads(computerSequence);
+  setTimeout(() => playHumanTurn(roundCount), roundCount * 600 + 1000);
 
   }
 
@@ -303,7 +297,9 @@ function activatePads(sequence) {
  * 2. Display a status message showing the player how many presses are left in the round
  */
 function playHumanTurn() {
-  // TODO: Write your code here.
+  padContainer.classList.remove("unclickable");
+  const pressesLeft = computerSequence.length - playerSequence.length;
+  setText(statusSpan, `Player's turn. Presses left: ${pressesLeft}`);
 }
 
 /**
@@ -329,8 +325,28 @@ function playHumanTurn() {
  *
  */
 function checkPress(color) {
-  // TODO: Write your code here.
-  const index = color;
+
+  // Adds the color to the end of playerSequence
+  playerSequence.push(color);
+
+  // Stores the index of that color in the index variable
+  const index = playerSequence.length - 1;
+
+  // Calculates presses that are left 
+  const remainingPresses = computerSequence.length - playerSequence.length;
+
+  // let user know how many presses they have left
+  setText(statusSpan, `Presses left: ${remainingPresses}`);
+
+  if(computerSequence[index] !== playerSequence[index]) {
+    resetGame("Game over.");
+    return;
+  }
+
+  if(remainingPresses === 0) {
+    checkRound();
+  }
+
 }
 
 /**
@@ -350,13 +366,17 @@ function checkPress(color) {
 
 function checkRound() {
   // TODO: Write your code here.
-  let playerCount = playerSequence();
-  let maxedOut = maxRoundCount();
-  if(playerCount === maxedOut) {
-    resetGame();
+  if(playerSequence.length === maxRoundCount) {
+    resetGame("Great job. You win!");
   } else {
-    playerCount += 1;
-    maxedOut += 1;
+    roundCount += 1;
+    playerSequence = [];
+
+    setText(statusSpan, "Nice! Keep going!");
+
+    setTimeout(() => {
+      playComputerTurn();
+    }, 1000);
   }
 }
 
@@ -371,7 +391,9 @@ function checkRound() {
  */
 function resetGame(text) {
   // TODO: Write your code here.
-
+  computerSequence = [];
+  playerSequence = [];
+  roundCount = 0;
   // Uncomment the code below:
   alert(text);
   setText(heading, "Simon Says");
@@ -406,11 +428,5 @@ window.checkPress = checkPress;
 window.checkRound = checkRound;
 window.resetGame = resetGame;
 
-module.exports = {
-  padHandler,
-  startButtonHandler,
-  setLevel
-  
-};
 
 
