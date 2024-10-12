@@ -62,6 +62,7 @@ let roundCount = 0; // track the number of rounds that have been played so far
 
 padContainer.addEventListener("click", padHandler);
 // TODO: Add an event listener `startButtonHandler()` to startButton.
+startButton.addEventListener("click", startButtonHandler);
 
 /**
  * EVENT HANDLERS
@@ -82,9 +83,22 @@ padContainer.addEventListener("click", padHandler);
  *
  */
 function startButtonHandler() {
-  // TODO: Write your code here.
+  // DONE: Write your code here.
+  // Hides start button
+  startButton.classList.add("hidden");
 
-  return { startButton, statusSpan };
+  // Unhides the status element using the `.hidden` class, shows game status
+  const statusSpan = document.querySelector(".js-status");
+  statusSpan.classList.remove("hidden");
+  
+  // To start of the game, call playComputerTurn() and setLevel()
+  playComputerTurn();
+  setLevel();
+
+  return { 
+    startButton, 
+    statusSpan,
+    setLevel};
 }
 
 /**
@@ -109,7 +123,10 @@ function padHandler(event) {
   if (!color) return;
 
   // TODO: Write your code here.
-  return color;
+  const pad = pads.find(pa => pa.color === color);
+pad.sound.play();
+
+return color;
 }
 
 /**
@@ -138,7 +155,24 @@ function padHandler(event) {
  *
  */
 function setLevel(level = 1) {
-  // TODO: Write your code here.
+  // DONE: Write your code here.
+  switch (level) {
+    case 1:
+      return 8;
+    case 2:
+      return 14;
+    case 3:
+      return 20;
+    case 4:
+      return 31;
+    // cases 5 and 6 not needed since default returns the same string 
+    // case 5: 
+    //  return "Please enter level 1, 2, 3, or 4";
+    // case 6:
+    //   return "Please enter level 1, 2, 3, or 4";
+    default:
+      return "Please enter level 1, 2, 3, or 4";
+  }
 }
 
 /**
@@ -157,9 +191,9 @@ function setLevel(level = 1) {
  * getRandomItem([1, 2, 3, 4]) //> returns 1
  */
 function getRandomItem(collection) {
-  // if (collection.length === 0) return null;
-  // const randomIndex = Math.floor(Math.random() * collection.length);
-  // return collection[randomIndex];
+  if (collection.length === 0) return null;
+  const randomIndex = Math.floor(Math.random() * collection.length);
+  return collection[randomIndex];
 }
 
 /**
@@ -185,6 +219,20 @@ function setText(element, text) {
 
 function activatePad(color) {
   // TODO: Write your code here.
+  const pad = allPads.find(p => p.color === color);
+
+  if(pad) {
+    const padElementPressed = document.querySelector(`.pad-${color}`);
+    padElementPressed.classList.add("activated");
+    if(pad.sound) {
+      pad.sound.play();
+    
+    }
+    
+    return pad;
+  }
+  return null;
+  
 }
 
 /**
@@ -269,6 +317,7 @@ function playHumanTurn() {
  */
 function checkPress(color) {
   // TODO: Write your code here.
+  const index = color;
 }
 
 /**
@@ -303,11 +352,11 @@ function resetGame(text) {
   // TODO: Write your code here.
 
   // Uncomment the code below:
-  // alert(text);
-  // setText(heading, "Simon Says");
-  // startButton.classList.remove("hidden");
-  // statusSpan.classList.add("hidden");
-  // padContainer.classList.add("unclickable");
+  alert(text);
+  setText(heading, "Simon Says");
+  startButton.classList.remove("hidden");
+  statusSpan.classList.add("hidden");
+  padContainer.classList.add("unclickable");
 }
 
 /**
@@ -339,6 +388,7 @@ window.resetGame = resetGame;
 module.exports = {
   padHandler,
   startButtonHandler,
+  setLevel
   
 };
 
