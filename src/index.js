@@ -6,8 +6,8 @@
  const startButton = document.querySelector(".js-start-button");
 
  const statusSpan = document.querySelector(".status"); // Use querySelector() to get the status element
- const heading = document.querySelector(".heading"); // Use querySelector() to get the heading element
- const padContainer = document.querySelector(".pad-container"); // Use querySelector() to get the heading element
+ const heading = document.querySelector(".js-heading"); // Use querySelector() to get the heading element
+ const padContainer = document.querySelector(".pad-container"); // Use querySelector() to get the padContainer element
 
 /**
  * VARIABLES
@@ -45,12 +45,12 @@ let roundCount = 0; // track the number of rounds that have been played so far
     sound: new Audio("../assets/simon-says-sound-2.mp3"),
   },
   {
-    color: "red",
+    color: "blue",
     selector: document.querySelector(".js-pad-blue"),
     sound: new Audio("../assets/simon-says-sound-3.mp3"),
   },
   {
-    color: "red",
+    color: "yellow",
     selector: document.querySelector(".js-pad-yellow"),
     sound: new Audio("../assets/simon-says-sound-4.mp3"),
   }
@@ -201,6 +201,7 @@ function getRandomItem(collection) {
  */
 function setText(element, text) {
   // TODO: Write your code here.
+  element.textContent = text;
   return element;
 }
 
@@ -219,16 +220,18 @@ function setText(element, text) {
 
 function activatePad(color) {
   // TODO: Write your code here.
-  const pad = allPads.find(p => p.color === color);
+  const pad = pads.find(p => p.color === color);
 
   if(pad) {
-    const padElementPressed = document.querySelector(`.pad-${color}`);
+    const padElementPressed = pad.selector;
     padElementPressed.classList.add("activated");
-    if(pad.sound) {
-      pad.sound.play();
     
-    }
+    pad.sound.play();
     
+    // need to call padHandler to press 
+    setTimeout(() => {
+      padElementPressed.classList.remove("activated");
+    }, 500);
     return pad;
   }
   return null;
@@ -251,6 +254,15 @@ function activatePad(color) {
 
 function activatePads(sequence) {
   // TODO: Write your code here.
+  let timeoutbetweenPresses = 600;
+
+  sequence.forEach((color) => {
+    setTimeout(() => {
+      activatePad(color);
+    }, timeoutbetweenPresses);
+    timeoutbetweenPresses += 600;
+  });
+      
 }
 
 /**
@@ -278,9 +290,10 @@ function activatePads(sequence) {
  */
  function playComputerTurn() {
   // TODO: Write your code here.
+  setText(statusSpan, "The computer's turn...");
+  setText(heading, `Round ${roundCount + 1} of ${maxRoundCount}`);
 
-  setTimeout(() => playHumanTurn(roundCount), roundCount * 600 + 1000); // 5
-}
+  }
 
 /**
  * Allows the player to play their turn.
@@ -337,6 +350,14 @@ function checkPress(color) {
 
 function checkRound() {
   // TODO: Write your code here.
+  let playerCount = playerSequence();
+  let maxedOut = maxRoundCount();
+  if(playerCount === maxedOut) {
+    resetGame();
+  } else {
+    playerCount += 1;
+    maxedOut += 1;
+  }
 }
 
 /**
