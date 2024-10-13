@@ -66,11 +66,6 @@ h1 {
   margin: 20px;
 }
 
-.pad {
-  padding: 20px;
-  transition: backgroud-color 0.2s, transform 0.1s;
-}
-
 .pad-red {
   border-top-left-radius: 200px;
   background-color: red;
@@ -80,79 +75,64 @@ h1 {
 .pad-red:focus {
   background-color: #ff451a;
   transform: rotate(-5deg);
-  transition: backgroud-color 0.2s, transform 0.1s;
-
 }
 
 .pad-red:active,
 .pad-red.activated {
   background-color: #ff5c36;
   transform: translateY(10px);
-  transition: backgroud-color 0.2s, transform 0.1s;
-
 }
 
 .pad-green {
   border-top-right-radius: 200px;
   background-color: green;
-  padding: 20px;
-  transition: backgroud-color 0.2s, tranform 0.1s;
+  padding:
 }
 
 .pad-green:hover,
 .pad-green:focus {
   background-color: #8cc218;
   transform: rotate(5deg);
-  transition: backgroud-color 0.2s, transform 0.1s;
 }
 
 .pad-green:active,
 .pad-green.activated {
   background-color: #a0ea00;
   transform: translateY(10px);
-  transition: backgroud-color 0.2s, transform 0.1s;
 }
 
 .pad-yellow {
   border-bottom-right-radius: 200px;
   background-color: yellow;
-  padding: 20px;
-  transition: backgroud-color 0.2s, tranform 0.1s;
 }
 
 .pad-yellow:hover,
 .pad-yellow:focus {
   background-color: #ffb900;
   transform: rotate(5deg);
-  transition: backgroud-color 0.2s, transform 0.1s;
 }
 
 .pad-yellow:active,
 .pad-yellow.activated {
   background-color: #ffca3d;
   transform: translateY(10px);
-  transition: backgroud-color 0.2s, transform 0.1s;
 }
 
 .pad-blue {
   border-bottom-left-radius: 200px;
   background-color: blue;
-  padding: 20px;
-  transition: backgroud-color 0.2s, tranform 0.1s;
 }
 
 .pad-blue:hover,
 .pad-blue:focus {
   background-color: #139ddd;
   transform: rotate(5deg);
-  transition: backgroud-color 0.2s, transform 0.1s;
 }
 
 .pad-blue:active,
 .pad-blue.activated {
   background-color: #2bbcff;
   transform: translateY(10px);
-  transition: backgroud-color 0.2s, transform 0.1s;
 }
 
 .hidden {

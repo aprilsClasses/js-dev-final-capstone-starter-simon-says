@@ -33,23 +33,23 @@ const pads = [
   {
     color: "red",
     selector: document.querySelector(".js-pad-red"),
-    sound: new Audio("https://raw.githubusercontent.com/aprilsClasses/js-dev-final-capstone-starter-simon-says/main/assets/simon-says-sound-1.mp3"),
+    sound: new Audio("https://github.com/aprilsClasses/js-dev-final-capstone-starter-simon-says/blob/main/assets/simon-says-sound-1.mp3?raw=true"),
   },
   // TODO: Add the objects for the green, blue, and yellow pads. Use object for the red pad above as an example.
   {
     color: "green",
     selector: document.querySelector(".js-pad-green"),
-    sound: new Audio("https://raw.githubusercontent.com/aprilsClasses/js-dev-final-capstone-starter-simon-says/main/assets/simon-says-sound-2.mp3"),
+    sound: new Audio("https://github.com/aprilsClasses/js-dev-final-capstone-starter-simon-says/blob/main/assets/simon-says-sound-2.mp3?raw=true"),
   },
   {
     color: "blue",
     selector: document.querySelector(".js-pad-blue"),
-    sound: new Audio("https://raw.githubusercontent.com/aprilsClasses/js-dev-final-capstone-starter-simon-says/main/assets/simon-says-sound-3.mp3"),
+    sound: new Audio("https://github.com/aprilsClasses/js-dev-final-capstone-starter-simon-says/blob/main/assets/simon-says-sound-3.mp3?raw=true"),
   },
   {
     color: "yellow",
     selector: document.querySelector(".js-pad-yellow"),
-    sound: new Audio("https://raw.githubusercontent.com/aprilsClasses/js-dev-final-capstone-starter-simon-says/main/assets/simon-says-sound-4.mp3"),
+    sound: new Audio("https://github.com/aprilsClasses/js-dev-final-capstone-starter-simon-says/blob/main/assets/simon-says-sound-4.mp3?raw=true"),
   }
 ];
 
@@ -57,8 +57,6 @@ pads.forEach(pad => {
   pad.sound.preload = 'auto';
 
 
-pad.sound.addEventListener('canplaythrough', () => {
-}, false);
 });
 
 /**
@@ -122,8 +120,16 @@ function padHandler(event) {
  
  const pad = pads.find((pad) => pad.color === color);
  if (pad) {
-  pad.sound.play();
+  pad.sound.currentTime = 0;
+
+  pad.sound.play().catch(error => {
+    console.error("Error with sound:", error);
+  });
+  pad.selector.classList.add("activated");
   checkPress(color);
+  setTimeout(() => {
+    pad.selector.classList.remove("activated");
+  }, 500);
  }
 
 return color;
