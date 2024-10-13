@@ -481,3 +481,6 @@ General Code Organization:
 - Start by completing the required HTML elements and then proceed to work on the javascript functions. CSS changes can be made last. Follow the order of the user stories.
 - If you get stuck, take a careful look at the resources that we provide. If you are still stuck, ask a friend or a mentor for help.
 - Read the user stories and tests carefully.
+
+## Added Sound Effects
+The sound effects for wining and losing a game are from [MixKit](https://mixkit.co/free-sound-ef)

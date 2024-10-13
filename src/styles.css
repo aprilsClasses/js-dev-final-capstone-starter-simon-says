@@ -143,3 +143,15 @@ h1 {
   pointer-events: none;
 }
 
+.no-hover .pad-red:hover,
+.no-hover .pad-green:hover,
+.no-hover .pad-yellow:hover,
+.no-hover .pad-blue:hover {
+  transform: none;
+}
+
+
+
+
+
+
