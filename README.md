@@ -1,3 +1,4 @@
+# Please note, this game works better in Chrome. I am working on a resolution for better user experience in other browsers.
 # Simon Says
 
 You've been hired as an intern at *Thinkful Game Studio*, which has decided to create a game, *Simon Says*. You will be applying all the HTML, CSS, and JavaScript skills you've learned in this course to help them build this game.
