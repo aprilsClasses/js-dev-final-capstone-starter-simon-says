@@ -53,6 +53,13 @@ const pads = [
   }
 ];
 
+pads.forEach(pad => {
+  pad.sound.preload = 'auto';
+
+
+pad.sound.addEventListener('canplaythrough', () => {
+}, false);
+});
 
 /**
  * EVENT LISTENERS
