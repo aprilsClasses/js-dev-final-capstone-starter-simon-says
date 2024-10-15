@@ -66,40 +66,58 @@ h1 {
   margin: 20px;
 }
 
+/* Default color of pad unless hover or activated */
 .pad-red {
   border-top-left-radius: 200px;
   background-color: red;
 }
 
-.pad-red:hover,
-.pad-red:focus {
-  background-color: #ff451a;
+/* When hovered but not inactive, the color darkens, and pad rotates slightly */
+.pad-red:hover:not(.inactive),
+.pad-red:focus:not(.inactive) {
+  background-color: #ac0303;
   transform: rotate(-5deg);
 }
 
+/* When pad is active (clicked) or computer activates, it changes to  a lighter color and the pad moves downward */
 .pad-red:active,
 .pad-red.activated {
-  background-color: #ff5c36;
+  background-color: #f69697;
   transform: translateY(10px);
 }
+/* When hovering over an active pad, the lighter color is maintained */
+.pad-red:active:hover,
+.pad-red.activated:hover {
+  background-color: #f69697;
+  transform: none;
+}
+
+
 
 .pad-green {
   border-top-right-radius: 200px;
-  background-color: green;
-  padding:
+  background-color: #0BC507;
 }
 
 .pad-green:hover,
 .pad-green:focus {
-  background-color: #8cc218;
+  background-color: ##2e6f40;
   transform: rotate(5deg);
 }
 
 .pad-green:active,
 .pad-green.activated {
-  background-color: #a0ea00;
+  background-color: #adebb3;
   transform: translateY(10px);
 }
+
+.pad-green:active:hover,
+.pad-green.activated:hover {
+  background-color: #adebb3;
+  transform: none;
+}
+
+
 
 .pad-yellow {
   border-bottom-right-radius: 200px;
@@ -108,32 +126,48 @@ h1 {
 
 .pad-yellow:hover,
 .pad-yellow:focus {
-  background-color: #ffb900;
+  background-color: #e0bc00;
   transform: rotate(5deg);
 }
 
+.pad-yellow:active:hover,
+.pad-yellow.activated:hover {
+  background-color: #FFEA00;
+  transform: none;
+}
 .pad-yellow:active,
 .pad-yellow.activated {
-  background-color: #ffca3d;
+  background-color: #FFEA00;
   transform: translateY(10px);
 }
 
+
+
+/* Default color of pad unless hover or activated*/
 .pad-blue {
   border-bottom-left-radius: 200px;
   background-color: blue;
 }
 
-.pad-blue:hover,
-.pad-blue:focus {
-  background-color: #139ddd;
-  transform: rotate(5deg);
+/* When hovered but not inactive, the color darkens, and pad rotates slightly */
+.pad-blue:hover:not(.inactive),
+.pad-blue:focus:not(.inactive) {
+  background-color: #00008a;
+  transform: rotate(-5deg);
 }
-
 .pad-blue:active,
 .pad-blue.activated {
   background-color: #2bbcff;
   transform: translateY(10px);
 }
+
+
+.pad-blue:active:hover,
+.pad-blue.activated:hover {
+  background-color: #2bbcff;
+  transform: none;
+}
+
 
 .hidden {
   display: none;
