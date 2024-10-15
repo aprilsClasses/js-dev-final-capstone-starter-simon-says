@@ -99,8 +99,8 @@ h1 {
   background-color: #0BC507;
 }
 
-.pad-green:hover,
-.pad-green:focus {
+.pad-green:hover:not(.inactive),
+.pad-green:focus:not(.inactive) {
   background-color: #2e6f40;
   transform: rotate(5deg);
 }
